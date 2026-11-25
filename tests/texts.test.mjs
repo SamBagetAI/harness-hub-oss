@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { SERVER_INSTRUCTIONS, TOOLS } from "../lib/hub/texts.ts";
+import { SERVER_INSTRUCTIONS, TOOLS } from "../src/lib/hub/texts.ts";
 
 const tools = Object.values(TOOLS);
 

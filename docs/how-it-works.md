@@ -10,9 +10,9 @@ person's own tools.
 
 ## Where it stands
 
-Everything lives in a Neon Postgres database (`lib/hub/db.ts`). Every save is a new version;
+Everything lives in a Neon Postgres database (`src/lib/hub/db.ts`). Every save is a new version;
 versions are never edited or deleted, and runs use the latest. A Hub starts with one built-in
-harness (`lib/hub/built-in.ts`), added once as version 1 if its slug is not there yet: the Morning
+harness (`src/lib/hub/built-in.ts`), added once as version 1 if its slug is not there yet: the Morning
 inbox brief, a small read-only example with one skill, one tool, two hooks and one memory. Built-in
 harnesses are never removed from a Hub's database: one taken out of the code stays where it was
 already added.
@@ -38,7 +38,7 @@ harness, and any harness can use any piece.
 - **What tells parts apart.** A part is told apart by the slug of its piece, and goes by its
   piece's name: rename the piece and every harness reads the new name. The name stored with a link
   is only a record of what the piece was called when the harness was last saved
-  (`lib/hub/diff.ts` compares by slug).
+  (`src/lib/hub/diff.ts` compares by slug).
 - **Changing a piece.** A change to a part's name or text is a new version of its piece; the
   harness stays at its version. The harness a piece was made for changes it freely, and whoever
   can change that harness can change the piece. A piece a harness only borrows is changed by its
@@ -69,7 +69,7 @@ harness, and any harness can use any piece.
   item a reader cannot see says nothing about it: "made for", "copy of", a piece's name and slug
   in a harness (it reads "a private piece"), harnesses or pieces named in a refusal or a size
   warning (counted instead). Two things stay: a piece made for a harness starts its slug with the
-  harness's slug, and a version's "changes" line keeps the name a piece had when it was saved. The rule is `lib/hub/visibility.ts`;
+  harness's slug, and a version's "changes" line keeps the name a piece had when it was saved. The rule is `src/lib/hub/visibility.ts`;
   `seesSql` is the same rule for queries.
 - **Who changes what.** The owner and the editors the owner names change an item. Anyone else
   suggests a change, which is merged into a new version or closed, or makes their own copy. A copy
@@ -116,13 +116,13 @@ harness, and any harness can use any piece.
   count those reports, not runs: a run that never reports is invisible. Stats covers the last 14
   days, for everyone or for the reader alone: each harness day by day, and the parts that were
   blamed, with what the agent said and whether it was seen again. Both pages open with how a run
-  gets there, because that is what makes the numbers readable (`components/runs-explainer.tsx`,
-  `lib/hub/verdicts.ts`). A run that was not fine stays open until the person whose run it was,
+  gets there, because that is what makes the numbers readable (`src/components/runs-explainer.tsx`,
+  `src/lib/hub/verdicts.ts`). A run that was not fine stays open until the person whose run it was,
   or the owner or an editor of the harness, marks it as dealt with, with a line on what was done:
   on the Runs page, or through their agent, only when they say they looked at it.
   The verdict stays the agent's. The home page lists the open runs that wait for the reader.
 - **Each person's own values.** A person can save their values for a harness's variables
-  (`lib/hub/values.ts`): on its page under Variables, or through their agent with
+  (`src/lib/hub/values.ts`): on its page under Variables, or through their agent with
   `harness_hub_save_values` once they agree. They are theirs only, never shown to anyone else,
   the owner included. A load lists them next to each variable, a picked prompt uses them for a
   field left empty, and a scheduled run uses them after the values in its own prompt. Each value
@@ -148,7 +148,7 @@ harness, and any harness can use any piece.
 - **What each agent may do.** Each agent a person connects (an OAuth client: Claude, Codex, a
   scheduled run's app) is listed on their Connect page after its first call, read only or read
   and write. The sign-in provider cannot put custom scopes in its tokens, so this is the Hub's own
-  setting, per person and agent (`lib/hub/agents.ts`, the rule in `lib/hub/access.ts`). A new
+  setting, per person and agent (`src/lib/hub/agents.ts`, the rule in `src/lib/hub/access.ts`). A new
   agent can read and write, and so can one that registers again under a new client id after a
   reconnect: switch it again on the Connect page. A read-only agent uses the five reading tools
   and still reports its runs; every other tool refuses it and says where its person can change
@@ -170,19 +170,19 @@ harness, and any harness can use any piece.
 
 | Part | Where | What it does |
 |---|---|---|
-| Connector | `app/api/mcp/route.ts`, with `inputs.ts` (what each tool takes) and `render.ts` (a piece as an agent reads it) | Five tools that read (`harness_hub_whoami`, `_search`, `_get_harness`, `_get_piece`, `_history`) and eleven that write (`_save`, `_copy`, `_suggest_change`, `_review_suggestion`, `_append_memory`, `_save_values`, `_archive`, `_set_editor`, `_mark_run`, `_team`, `_log_run`). In Claude each write asks for a click on every call, except reporting a run. An agent its person made read-only can only read and report runs. It also offers each harness the caller sees as an MCP prompt, with a field per variable (`lib/hub/prompts.ts`): the prompt only asks the agent to load the harness with the tool, so a teammate's text never arrives as the person's own words. |
-| Token check | `lib/mcp-auth.ts` | Verifies Claude's access token with Clerk, for this exact connector address, then maps it to a person. |
-| Sign-in metadata | `app/.well-known/oauth-protected-resource/…` | Tells Claude which sign-in server to use. The connector's `401` points here. |
-| Who is let in | `lib/hub/members.ts`, `lib/hub/clerk.ts` | A person is their primary, verified email. `ALLOWED_EMAILS` lists the exact addresses allowed. |
-| Store | `lib/hub/harnesses.ts` (saving, editing, suggestions), `read.ts` (reading items and versions), `setup.ts` (tables, built-in harnesses, one-time moves of old data), `db.ts` (tables and connection), `slugs.ts` | The one place items are read and saved: pages, forms and the connector never import `db.ts` or the database driver, and `pnpm lint` fails if they do (the health check is the one exception). Tables `harnesses` (harnesses and pieces, by `kind`; a piece made for a harness names it in `made_for`), `versions`, `suggestions`, `roles` (editors), `runs`, `members` and `agents` (what each connected agent may do), created on first use. A save or a merge lands only on top of the version it was worked out from, and the pieces a save makes are written in the same transaction as the harness version that links them. |
-| Runs and people | `lib/hub/runs.ts`, `lib/hub/people.ts` | What agents report about runs, with the numbers for the Stats page; and the people admins added from the Hub. |
-| Changes | `lib/hub/diff.ts` | Compares two versions field by field, shows the changed lines, and merges a suggestion onto the latest version when nothing it touches changed since. |
-| Built-in harnesses | `lib/hub/built-in.ts`, `lib/hub/routines/` | What a Hub starts with. |
-| Parts | `lib/hub/parts.ts`, `lib/hub/library.ts` | Kind names, glyphs and hook timings; which names in braces a harness uses without declaring them; the library lists every piece by kind, with where it is used. |
-| Run rules | `lib/hub/run-rules.ts` | The fixed text an agent receives ahead of every harness (among them: nothing that reaches other people, spends or cannot be undone without the person's go, while keeping their own files and artifacts up to date is part of a run), then the prompt and each part under a heading that names its piece and version, inside a tagged block. A teammate's piece and a memory's team notes get tagged lines of their own inside it. |
-| Search | `lib/hub/search.ts` | Word matching that tells Claude to go ahead only on one clear match. |
-| Dashboard | `app/`, `components/` | Harnesses, a page per harness or piece (the item, Versions, Suggestions, Runs), New, Skills, Tools, Hooks and memory, Stats, Members, Connect an agent. Every page goes through `components/member-page.tsx`; every form goes through `app/h/[slug]/actions.ts`. |
-| Clerk on pages | `proxy.ts` | Runs Clerk on dashboard pages only. The connector and `/.well-known` are deliberately left out. |
+| Connector | `src/app/api/mcp/route.ts`, with `inputs.ts` (what each tool takes) and `render.ts` (a piece as an agent reads it) | Five tools that read (`harness_hub_whoami`, `_search`, `_get_harness`, `_get_piece`, `_history`) and eleven that write (`_save`, `_copy`, `_suggest_change`, `_review_suggestion`, `_append_memory`, `_save_values`, `_archive`, `_set_editor`, `_mark_run`, `_team`, `_log_run`). In Claude each write asks for a click on every call, except reporting a run. An agent its person made read-only can only read and report runs. It also offers each harness the caller sees as an MCP prompt, with a field per variable (`src/lib/hub/prompts.ts`): the prompt only asks the agent to load the harness with the tool, so a teammate's text never arrives as the person's own words. |
+| Token check | `src/lib/mcp-auth.ts` | Verifies Claude's access token with Clerk, for this exact connector address, then maps it to a person. |
+| Sign-in metadata | `src/app/.well-known/oauth-protected-resource/…` | Tells Claude which sign-in server to use. The connector's `401` points here. |
+| Who is let in | `src/lib/hub/members.ts`, `src/lib/hub/clerk.ts` | A person is their primary, verified email. `ALLOWED_EMAILS` lists the exact addresses allowed. |
+| Store | `src/lib/hub/harnesses.ts` (saving, editing, suggestions), `read.ts` (reading items and versions), `setup.ts` (tables, built-in harnesses, one-time moves of old data), `db.ts` (tables and connection), `slugs.ts` | The one place items are read and saved: pages, forms and the connector never import `db.ts` or the database driver, and `pnpm lint` fails if they do (the health check is the one exception). Tables `harnesses` (harnesses and pieces, by `kind`; a piece made for a harness names it in `made_for`), `versions`, `suggestions`, `roles` (editors), `runs`, `members` and `agents` (what each connected agent may do), created on first use. A save or a merge lands only on top of the version it was worked out from, and the pieces a save makes are written in the same transaction as the harness version that links them. |
+| Runs and people | `src/lib/hub/runs.ts`, `src/lib/hub/people.ts` | What agents report about runs, with the numbers for the Stats page; and the people admins added from the Hub. |
+| Changes | `src/lib/hub/diff.ts` | Compares two versions field by field, shows the changed lines, and merges a suggestion onto the latest version when nothing it touches changed since. |
+| Built-in harnesses | `src/lib/hub/built-in.ts`, `src/lib/hub/routines/` | What a Hub starts with. |
+| Parts | `src/lib/hub/parts.ts`, `src/lib/hub/library.ts` | Kind names, glyphs and hook timings; which names in braces a harness uses without declaring them; the library lists every piece by kind, with where it is used. |
+| Run rules | `src/lib/hub/run-rules.ts` | The fixed text an agent receives ahead of every harness (among them: nothing that reaches other people, spends or cannot be undone without the person's go, while keeping their own files and artifacts up to date is part of a run), then the prompt and each part under a heading that names its piece and version, inside a tagged block. A teammate's piece and a memory's team notes get tagged lines of their own inside it. |
+| Search | `src/lib/hub/search.ts` | Word matching that tells Claude to go ahead only on one clear match. |
+| Dashboard | `src/app/`, `src/components/` | Harnesses, a page per harness or piece (the item, Versions, Suggestions, Runs), New, Skills, Tools, Hooks and memory, Stats, Members, Connect an agent. Every page goes through `src/components/member-page.tsx`; every form goes through `src/app/h/[slug]/actions.ts`. |
+| Clerk on pages | `src/proxy.ts` | Runs Clerk on dashboard pages only. The connector and `/.well-known` are deliberately left out. |
 
 Two rules the code depends on:
 
@@ -190,8 +190,8 @@ Two rules the code depends on:
   `resource` in the sign-in metadata, character for character. `HUB_URL` is that address's origin.
   It is read from configuration, never from the incoming request.
 - **Signed in is not let in.** Anyone with a Google account can sign in to the Clerk application.
-  Pages and tools show Hub content only to addresses on the list (`lib/hub/session.ts` for pages,
-  `callerOf` in `lib/mcp-auth.ts` for tools).
+  Pages and tools show Hub content only to addresses on the list (`src/lib/hub/session.ts` for pages,
+  `callerOf` in `src/lib/mcp-auth.ts` for tools).
 
 ## Run your own Hub
 
@@ -299,7 +299,7 @@ as they are. They cover the logic that is plain functions of its arguments:
 | `tests/safe-text.test.mjs` | Quoting of what people typed, slugs, tagged blocks. |
 
 `tests/helpers.mjs` builds versions, items and parts for them. To test a rule, put it where it can
-be called without the database (most of `lib/hub/` is), export it, and add a case.
+be called without the database (most of `src/lib/hub/` is), export it, and add a case.
 
 `pnpm check:store` covers the store's own rules (who may mark a run as dealt with, add an editor,
 archive, or make an agent read-only), who sees what, the rules of pieces (who may change one, what
@@ -328,7 +328,7 @@ applications, Settings, Client onboarding, "Publish DCR support" is on and "Publ
 off: with CIMD on, Clerk failed to resolve Claude's identity document. "Allowed scopes for dynamic
 clients" includes `openid` besides `email`, `profile` and `offline_access`: ChatGPT always asks for
 `openid`, and Clerk refuses a scope that list leaves out (`invalid_scope`). The sign-in metadata
-lists `openid` too (`lib/hub/resource-metadata.ts`), so a client registers with it.
+lists `openid` too (`src/lib/hub/resource-metadata.ts`), so a client registers with it.
 
 ## Adding it in ChatGPT
 

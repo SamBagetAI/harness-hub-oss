@@ -14,7 +14,7 @@
   <img alt="Clerk" src="https://img.shields.io/badge/auth-Clerk-6c47ff?logo=clerk&logoColor=white">
   <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10.33-f69220?logo=pnpm&logoColor=white">
   <img alt="Vercel" src="https://img.shields.io/badge/deployed%20on-Vercel-black?logo=vercel">
-  <a href="CONTRIBUTING.md#a-map-of-the-code-optional"><img alt="Code map: graphify" src="https://img.shields.io/badge/code%20map-graphify-0b7285"></a>
+  <a href=".github/CONTRIBUTING.md#a-map-of-the-code-optional"><img alt="Code map: graphify" src="https://img.shields.io/badge/code%20map-graphify-0b7285"></a>
 </p>
 
 <p align="center"><img src="docs/harness.gif" alt="A harness page in Harness Hub: its prompt, skill, tool, hooks and memory connect to the harness one by one, someone clicks Run in Claude, and runs come back from Claude and ChatGPT, each marked fine" width="560"></p>
@@ -91,8 +91,8 @@ The rules, the environment variables and the checks are in
 
 ## Contributing
 
-Issues and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). To report a security
-problem, see [SECURITY.md](SECURITY.md).
+Issues and pull requests are welcome: see [CONTRIBUTING.md](.github/CONTRIBUTING.md). To report a security
+problem, see [SECURITY.md](.github/SECURITY.md).
 
 ## License
 

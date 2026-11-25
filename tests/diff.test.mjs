@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { addedLinks, changedKeys, describeChanges, fieldDiffs, lineDiff, mergeOnto, renderDiffs, withNames } from "../lib/hub/diff.ts";
+import { addedLinks, changedKeys, describeChanges, fieldDiffs, lineDiff, mergeOnto, renderDiffs, withNames } from "../src/lib/hub/diff.ts";
 import { fields, link, text } from "./helpers.mjs";
 
 const parts = (...list) => fields({ content: { parts: list } });

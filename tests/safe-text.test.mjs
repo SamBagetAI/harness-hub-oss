@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { day, emailText, fenced, oneLine, personText, quoted, SLUG, VARIABLE_KEY } from "../lib/hub/safe-text.ts";
+import { day, emailText, fenced, oneLine, personText, quoted, SLUG, VARIABLE_KEY } from "../src/lib/hub/safe-text.ts";
 
 describe("stored text put into what the Hub writes", () => {
   it("becomes one line, cut to a length", () => {

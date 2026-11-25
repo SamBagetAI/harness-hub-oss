@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { canSee, visibilityOf } from "../lib/hub/visibility.ts";
+import { canSee, visibilityOf } from "../src/lib/hub/visibility.ts";
 
 const owner = { email: "sam@example.com" };
 const editor = { email: "edith@example.com" };

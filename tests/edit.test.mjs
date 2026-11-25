@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { applyEdit, canEdit, loadSize, ownTextOf } from "../lib/hub/harnesses.ts";
-import { lastChangeOf, partOf } from "../lib/hub/read.ts";
-import { madeSlug, slugOf } from "../lib/hub/slugs.ts";
+import { applyEdit, canEdit, loadSize, ownTextOf } from "../src/lib/hub/harnesses.ts";
+import { lastChangeOf, partOf } from "../src/lib/hub/read.ts";
+import { madeSlug, slugOf } from "../src/lib/hub/slugs.ts";
 import { EDITH, BEN, ADA, daysAgo, fields, link, text, view } from "./helpers.mjs";
 
 /** applyEdit either returns the new version or a sentence saying why not. */

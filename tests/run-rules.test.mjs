@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { renderHarness, routineText } from "../lib/hub/run-rules.ts";
+import { renderHarness, routineText } from "../src/lib/hub/run-rules.ts";
 import { EDITH, BEN, ADA, daysAgo, part, text, view } from "./helpers.mjs";
 
 const tagOf = (rendered) => rendered.match(/^HARNESS TEXT ([0-9a-f]{8}) BEGINS/m)?.[1];

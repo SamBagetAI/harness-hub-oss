@@ -17,18 +17,18 @@ if (process.env.HUB_TABLE_PREFIX !== "dev_") {
   process.exit(1);
 }
 register("./ts-resolve.mjs", import.meta.url);
-const { db } = await import("../lib/hub/db.ts");
-const { appendMemory, reviewSuggestion, saveHarness: saveAs, setArchived, setEditor, setVisibility, suggestChange, suggestionsFor, waitingFor } = await import("../lib/hub/harnesses.ts");
-const { everything, findHarness, versionFields, versionsOf } = await import("../lib/hub/read.ts");
+const { db } = await import("../src/lib/hub/db.ts");
+const { appendMemory, reviewSuggestion, saveHarness: saveAs, setArchived, setEditor, setVisibility, suggestChange, suggestionsFor, waitingFor } = await import("../src/lib/hub/harnesses.ts");
+const { everything, findHarness, versionFields, versionsOf } = await import("../src/lib/hub/read.ts");
 // The checks below were written when every item was seen by the whole team: what they create is a team item unless a
 // check says otherwise. The checks of visibility itself, at the end, create private items on purpose.
 const saveHarness = (member, input) => saveAs(member, { visibility: "team", ...input });
-const { describeChanges, mergeOnto } = await import("../lib/hub/diff.ts");
-const { followUpRun, lastRun, logRun, openRunsFor, resultsByModel, runsOf, verdictsOf } = await import("../lib/hub/runs.ts");
-const { renderHarness } = await import("../lib/hub/run-rules.ts");
-const { undeclaredNames } = await import("../lib/hub/parts.ts");
-const { agentsOf, seen, setAccess } = await import("../lib/hub/agents.ts");
-const { saveValues, valuesOf } = await import("../lib/hub/values.ts");
+const { describeChanges, mergeOnto } = await import("../src/lib/hub/diff.ts");
+const { followUpRun, lastRun, logRun, openRunsFor, resultsByModel, runsOf, verdictsOf } = await import("../src/lib/hub/runs.ts");
+const { renderHarness } = await import("../src/lib/hub/run-rules.ts");
+const { undeclaredNames } = await import("../src/lib/hub/parts.ts");
+const { agentsOf, seen, setAccess } = await import("../src/lib/hub/agents.ts");
+const { saveValues, valuesOf } = await import("../src/lib/hub/values.ts");
 
 let passed = 0;
 let failed = 0;

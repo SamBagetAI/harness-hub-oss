@@ -9,7 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 export async function resolve(specifier, context, next) {
   let target = null;
-  if (specifier.startsWith("@/")) target = path.join(root, specifier.slice(2));
+  if (specifier.startsWith("@/")) target = path.join(root, "src", specifier.slice(2));
   else if (/^\.\.?\//.test(specifier) && context.parentURL?.startsWith("file:") && !path.extname(specifier)) {
     target = path.resolve(path.dirname(fileURLToPath(context.parentURL)), specifier);
   }

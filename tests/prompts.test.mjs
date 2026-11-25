@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { promptMessage, promptOf } from "../lib/hub/prompts.ts";
+import { promptMessage, promptOf } from "../src/lib/hub/prompts.ts";
 import { view } from "./helpers.mjs";
 
 const h = view({

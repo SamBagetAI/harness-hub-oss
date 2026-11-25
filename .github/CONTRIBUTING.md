@@ -6,7 +6,7 @@ connector for agents. Changes that keep it that way are the easiest to take.
 ## Before you start
 
 For anything larger than a fix, open an issue first and say what you want to change and why.
-[docs/how-it-works.md](docs/how-it-works.md) has the rules the code keeps; a change that breaks one
+[docs/how-it-works.md](../docs/how-it-works.md) has the rules the code keeps; a change that breaks one
 of them needs a reason.
 
 ## Running it
@@ -32,9 +32,9 @@ graphify hook install         # rebuild the map after each commit
 pnpm graph                    # build it now: graphify-out/graph.html, GRAPH_REPORT.md, graph.json
 ```
 
-Then, for example, `graphify explain "lib/hub/harnesses.ts::saveHarness()"` lists what saving a
+Then, for example, `graphify explain "src/lib/hub/harnesses.ts::saveHarness()"` lists what saving a
 harness calls and what calls it. The map stays on your machine: `graphify-out/` is ignored by git.
-[AGENTS.md](AGENTS.md) tells agents to use it when it is there.
+[AGENTS.md](../AGENTS.md) tells agents to use it when it is there.
 
 ## Checks
 
@@ -46,7 +46,7 @@ harness calls and what calls it. The map stays on your machine: `graphify-out/` 
 | `pnpm smoke` | `pnpm dev` running | no: run it locally |
 
 A change comes with tests in the layer that can see it (the Tests section of
-[docs/how-it-works.md](docs/how-it-works.md) says which), and with that page brought up to date.
+[docs/how-it-works.md](../docs/how-it-works.md) says which), and with that page brought up to date.
 
 ## Pull requests
 

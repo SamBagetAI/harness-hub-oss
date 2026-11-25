@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { mayUse } from "../lib/hub/access.ts";
+import { mayUse } from "../src/lib/hub/access.ts";
 
 describe("what a connected agent may do", () => {
   it("an agent that may write uses every tool", () => {

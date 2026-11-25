@@ -5,17 +5,17 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Pages, forms and the connector ask the store (lib/hub/), never the database. The health check is the one
+  // Pages, forms and the connector ask the store (src/lib/hub/), never the database. The health check is the one
   // exception: it only asks whether the database answers. See "Store" in docs/how-it-works.md.
   {
-    files: ["app/**", "components/**"],
-    ignores: ["app/api/health/route.ts"],
+    files: ["src/app/**", "src/components/**"],
+    ignores: ["src/app/api/health/route.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
         {
-          paths: [{ name: "@neondatabase/serverless", message: "Pages, forms and the connector go through the store in lib/hub/, never to the database." }],
-          patterns: [{ group: ["@/lib/hub/db", "**/lib/hub/db", "**/lib/hub/db.ts"], message: "Pages, forms and the connector go through the store in lib/hub/ (read.ts, harnesses.ts, runs.ts…), never to db.ts." }],
+          paths: [{ name: "@neondatabase/serverless", message: "Pages, forms and the connector go through the store in src/lib/hub/, never to the database." }],
+          patterns: [{ group: ["@/lib/hub/db", "**/lib/hub/db", "**/lib/hub/db.ts"], message: "Pages, forms and the connector go through the store in src/lib/hub/ (read.ts, harnesses.ts, runs.ts…), never to db.ts." }],
         },
       ],
     },

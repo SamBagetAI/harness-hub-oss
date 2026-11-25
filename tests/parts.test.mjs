@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { blamedParts, partAnchor, partsOfKind, undeclaredNames, variableDefault } from "../lib/hub/parts.ts";
+import { blamedParts, partAnchor, partsOfKind, undeclaredNames, variableDefault } from "../src/lib/hub/parts.ts";
 import { link, text, view } from "./helpers.mjs";
 
 const content = (prompt, parts = [], variables = []) => ({ prompt, variables, parts });

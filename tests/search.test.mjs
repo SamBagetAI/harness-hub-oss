@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { renderSearch, searchHarnesses } from "../lib/hub/search.ts";
-import { summaryOf } from "../lib/hub/types.ts";
+import { renderSearch, searchHarnesses } from "../src/lib/hub/search.ts";
+import { summaryOf } from "../src/lib/hub/types.ts";
 import { BEN, ADA, daysAgo, view } from "./helpers.mjs";
 
 const x = summaryOf(view({ slug: "morning-standup-routine", name: "Morning standup routine", goal: "Tell the team what you did yesterday.", savedAt: daysAgo(3) }));

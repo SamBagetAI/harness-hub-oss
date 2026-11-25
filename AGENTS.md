@@ -11,7 +11,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## graphify: a map of the code
 
 If `graphify-out/graph.json` exists (made with [graphify](https://github.com/Graphify-Labs/graphify),
-see CONTRIBUTING.md), use it before searching or reading files:
+see .github/CONTRIBUTING.md), use it before searching or reading files:
 
 - `graphify query "<question>"` to find where something lives, before the first grep or file read.
   Put this rule in the prompt of every subagent that explores the code.
