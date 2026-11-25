@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo.svg" alt="" width="72" height="72"></p>
+
 <h1 align="center">Harness Hub</h1>
 
 <p align="center">Save an agent's harness once. Your teammates run it with their own agent and their own accounts.</p>
@@ -15,7 +17,7 @@
   <a href="CONTRIBUTING.md#a-map-of-the-code-optional"><img alt="Code map: graphify" src="https://img.shields.io/badge/code%20map-graphify-0b7285"></a>
 </p>
 
-<p align="center"><img src="docs/harness.png" alt="A harness page in Harness Hub: its goal and when it is meant to run, the prompt, skill, tool, hooks and memory it is built from, and its variables with the reader's own saved value" width="560"></p>
+<p align="center"><img src="docs/harness.gif" alt="A harness page in Harness Hub: its prompt, skill, tool, hooks and memory connect to the harness one by one, someone clicks Run in Claude, and runs come back from Claude and ChatGPT, each marked fine" width="560"></p>
 
 ## What it is
 
@@ -69,7 +71,7 @@ hooks and memory. Harness Hub is the team's shared library of them.
 
 ## Run your own Hub
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBagetAI%2Fharness-hub-oss&project-name=harness-hub&repository-name=harness-hub&env=HUB_URL%2CALLOWED_EMAILS%2CNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY%2CCLERK_SECRET_KEY&envDescription=The%20Hub%27s%20public%20address%20%28for%20example%20https%3A%2F%2Fyour-project.vercel.app%29%2C%20the%20admins%27%20Google%20addresses%2C%20and%20the%20keys%20of%20your%20Clerk%20application.&envLink=https%3A%2F%2Fgithub.com%2FBagetAI%2Fharness-hub-oss%2Fblob%2Fmain%2Fdocs%2Fhow-it-works.md%23run-your-own-hub&stores=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%2C%22protocol%22%3A%22storage%22%7D%5D)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSamBagetAI%2Fharness-hub-oss&project-name=harness-hub&repository-name=harness-hub&env=HUB_URL%2CALLOWED_EMAILS%2CNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY%2CCLERK_SECRET_KEY&envDescription=The%20Hub%27s%20public%20address%20%28for%20example%20https%3A%2F%2Fyour-project.vercel.app%29%2C%20the%20admins%27%20Google%20addresses%2C%20and%20the%20keys%20of%20your%20Clerk%20application.&envLink=https%3A%2F%2Fgithub.com%2FSamBagetAI%2Fharness-hub-oss%2Fblob%2Fmain%2Fdocs%2Fhow-it-works.md%23run-your-own-hub&stores=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%2C%22protocol%22%3A%22storage%22%7D%5D)
 
 Your own Hub runs on Vercel, with a Neon database and a Clerk application for sign-in. The button
 copies the code, creates the project and adds the database; Clerk you set up yourself. It takes

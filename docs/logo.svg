@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" role="img" aria-label="Harness Hub">
+  <rect width="64" height="64" fill="#1436c4"/>
+  <ellipse cx="23" cy="27" rx="3.4" ry="4.4" fill="#ffffff"/>
+  <ellipse cx="41" cy="27" rx="3.4" ry="4.4" fill="#ffffff"/>
+  <path d="M25 39.5 Q32 46 39 39.5" stroke="#ffffff" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+</svg>
